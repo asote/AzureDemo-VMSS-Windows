@@ -156,8 +156,8 @@ resource "azurerm_virtual_machine_scale_set" "vm-windows" {
 
     settings = <<SETTINGS
     {
-        "fileUris": [ "https://raw.githubusercontent.com/Azure-Samples/compute-automation-configurations/master/automate-iis.ps1" ],
-        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File automate-iis.ps1"
+        "fileUris": [ "https://raw.githubusercontent.com/asote/AzureDemo-VMSS-Windows/master/configurations/Install-WebServer.ps1" ],
+        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File Install-WebServer.ps1"
     }
     SETTINGS
   }
