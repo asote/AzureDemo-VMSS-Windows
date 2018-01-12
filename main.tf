@@ -28,11 +28,15 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name       = "${azurerm_resource_group.network.name}"
   address_prefix            = "10.0.1.0/24"
   network_security_group_id = "${azurerm_network_security_group.security_group.id}"
+
+  "tags" {
+    name = "Antonio Sotelo"
+  }
 }
 
 // Create NSG
 resource "azurerm_network_security_group" "security_group" {
-  name                = "netaccess"
+  name                = "subnet1access"
   location            = "${azurerm_resource_group.network.location}"
   resource_group_name = "${azurerm_resource_group.network.name}"
 
