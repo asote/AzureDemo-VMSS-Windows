@@ -10,7 +10,7 @@ IIS is configured with an ASP.Net application to run a CPU load test. Enable aut
 * Scale in: when cpu usage is less than 40% for 5 minutes while sampling every 1 minute, decrease my vm count by 1.
 
 
-#Note:
+# Note:
 To clear the following error:
 
 module.windowsservers.output.public_ip_address: Resource 'azurerm_public_ip.vm' does not have attribute 'ip_address' for variable 'azurerm_public_ip.vm.*.ip_address'
