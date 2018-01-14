@@ -212,8 +212,8 @@ resource "azurerm_sql_firewall_rule" "fw" {
   name                = "dbdemo1firewallrules"
   resource_group_name = "asotelovmssdemo"
   server_name         = "${azurerm_sql_server.server.name}"
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+  start_ip_address    = "10.0.1.5"
+  end_ip_address      = "10.0.1.254"
 }
 
 output "windows_vm_public_name" {
