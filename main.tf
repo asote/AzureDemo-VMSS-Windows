@@ -183,12 +183,13 @@ module "windowsservers" {
 
 // Add Azure SQL Database
 resource "azurerm_sql_database" "db" {
-  name                             = "Demo"
-  resource_group_name              = "asotelovmssdemo"
-  location                         = "centralus"
-  edition                          = "Basic"
-  server_name                      = "${azurerm_sql_server.server.name}"
-    tags {
+  name                = "Demo"
+  resource_group_name = "asotelovmssdemo"
+  location            = "centralus"
+  edition             = "Basic"
+  server_name         = "${azurerm_sql_server.server.name}"
+
+  tags {
     name = "Antonio Sotelo"
   }
 }
@@ -200,6 +201,7 @@ resource "azurerm_sql_server" "server" {
   version                      = "12"
   administrator_login          = "dbuser"
   administrator_login_password = "T3rr@f0rm!P0w3r"
+
   tags {
     name = "Antonio Sotelo"
   }
@@ -226,5 +228,5 @@ output "lb_number_of_nodes" {
 }
 
 output "sql_server_fqdn" {
-  value = "${module.sql-database.sql_server_fqdn}"
+  value = "${azurerm_sql_server.server.fully_qualified_domain_name}"
 }
