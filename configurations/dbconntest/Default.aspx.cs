@@ -16,6 +16,21 @@ using System;
 
     protected void btnTestDb_Click(object sender, EventArgs e)
     {
-
+        try
+        {
+        using (SqlConnection sqlConn = new SqlConnection("Server=dbdemo01.database.windows.net;Database=Demo;User ID=dbuser;Password=T3rr@f0rm!P0w3r"))
+                {
+                    sqlConn.Open();
+                    Response.Write("Connection OK!");
+                }
+        }
+        catch (SqlException)
+        {
+        Response.Write("No Connection!");
+        }
+        catch (Exception)
+        {
+        Response.Write("No Connection!");
+        }
     }
  }    
