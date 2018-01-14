@@ -182,18 +182,27 @@ module "windowsservers" {
 }
 
 // Add Azure SQL Database
-module "sql-database" {
-  source              = "Azure/database/azurerm"
-  resource_group_name = "asotelovmssdemo"
-  location            = "centralus"
-  db_name             = "Demo"
-  sql_admin_username  = "dbuser"
-  sql_password        = "T3rr@f0rm!P0w3r"
+resource "azurerm_sql_database" "db" {
+  name                             = "Demo"
+  resource_group_name              = "asotelovmssdemo"
+  location                         = "centralus"
+  edition                          = "Basic"
+  server_name                      = "${azurerm_sql_server.server.name}"
+    tags {
+    name = "Antonio Sotelo"
+  }
+}
 
-  tags             = {
-                       name = "Antonio Sotelo"
-                      }
-
+resource "azurerm_sql_server" "server" {
+  name                         = "dbdemo01"
+  resource_group_name          = "asotelovmssdemo"
+  location                     = "centralus"
+  version                      = "12"
+  administrator_login          = "dbuser"
+  administrator_login_password = "T3rr@f0rm!P0w3r"
+  tags {
+    name = "Antonio Sotelo"
+  }
 }
 
 output "windows_vm_public_name" {
