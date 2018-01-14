@@ -15,22 +15,7 @@ using System;
     }
 
     protected void btnTestDb_Click(object sender, EventArgs e)
-    {try
     {
-        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DemoConn"].ConnectionString);
-        connection.Open();
-        if ((connection.State &amp; ConnectionState.Open) &gt; 0)
-            {
-            Response.Write("Connection OK!");
-            connection.Close();
-            }
-        else
-            {
-            Response.Write("No Connection!");
-            }
-    }catch
-        {
-        Response.Write("No Connection!");
-        }
+
     }
  }    
