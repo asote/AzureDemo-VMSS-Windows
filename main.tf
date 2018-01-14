@@ -198,7 +198,7 @@ resource "azurerm_sql_server" "server" {
   name                         = "dbdemo01"
   resource_group_name          = "asotelovmssdemo"
   location                     = "centralus"
-  version                      = "12"
+  version                      = "12.0"
   administrator_login          = "dbuser"
   administrator_login_password = "T3rr@f0rm!P0w3r"
 
