@@ -12,6 +12,11 @@
 
       <div>
 
+      <p style="text-align: center">
+          Server you are on:&nbsp;
+          <asp:Label ID="lblHostname" runat="server"></asp:Label>
+      </p>  
+
        <asp:button id="btnTestDb" onclick="btnTestDb_Click" runat="server" text="Test Database Connection"/>
 
       </div>
