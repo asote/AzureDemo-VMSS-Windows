@@ -181,6 +181,21 @@ module "windowsservers" {
   }
 }
 
+// Add Azure SQL Database
+module "sql-database" {
+  source              = "Azure/database/azurerm"
+  resource_group_name = "asotelovmssdemo"
+  location            = "centralus"
+  db_name             = "Demo"
+  sql_admin_username  = "dbuser"
+  sql_password        = "T3rr@f0rm!P0w3r"
+
+  tags             = {
+                       name = "Antonio Sotelo"
+                      }
+
+}
+
 output "windows_vm_public_name" {
   value = "${module.windowsservers.public_ip_dns_name}"
 }
@@ -199,4 +214,8 @@ output "lb_frontend_IP_configuration" {
 
 output "lb_number_of_nodes" {
   value = "${module.loadbalancer.number_of_nodes}"
+}
+
+output "sql_server_fqdn" {
+  value = "${module.sql-database.sql_server_fqdn}"
 }
