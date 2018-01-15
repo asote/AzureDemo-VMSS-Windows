@@ -6,6 +6,9 @@ provider "azurerm" {
 resource "azurerm_resource_group" "network" {
   name     = "asotelovmssdemo"
   location = "centralus"
+    "tags" {
+    name = "Antonio Sotelo"
+  }
 }
 
 // Create Vnet
@@ -76,8 +79,8 @@ resource "azurerm_network_security_rule" "security_rule_http" {
 module "loadbalancer" {
   source              = "Azure/loadbalancer/azurerm"
   version             = "1.0.1"
-  resource_group_name = "asotelovmssdemo"
-  location            = "centralus"
+  resource_group_name = "${azurerm_resource_group.network.name}"
+  location            = "${azurerm_resource_group.network.location}"
 
   "lb_port" {
     http  = ["80", "Tcp", "80"]
@@ -92,8 +95,8 @@ module "loadbalancer" {
 // Add virtual machine scale set
 resource "azurerm_virtual_machine_scale_set" "vm-windows" {
   name                = "vmscaleset1"
-  location            = "centralus"
-  resource_group_name = "asotelovmssdemo"
+  location            = "${azurerm_resource_group.network.location}"
+  resource_group_name = "${azurerm_resource_group.network.name}"
   upgrade_policy_mode = "Manual"
 
   tags {
@@ -162,8 +165,8 @@ resource "azurerm_virtual_machine_scale_set" "vm-windows" {
 // Add jumpbox
 module "windowsservers" {
   source              = "Azure/compute/azurerm"
-  resource_group_name = "asotelovmssdemo"
-  location            = "centralus"
+  resource_group_name = "${azurerm_resource_group.network.name}"
+  location            = "${azurerm_resource_group.network.location}"
   vm_hostname         = "jumpbox1"
   admin_password      = "C0mplxP@s$w0rd!"
   public_ip_dns       = ["jumpbox1"]
@@ -184,8 +187,8 @@ module "windowsservers" {
 // Add Azure SQL Database
 resource "azurerm_sql_database" "db" {
   name                = "Demo"
-  resource_group_name = "asotelovmssdemo"
-  location            = "centralus"
+  resource_group_name = "${azurerm_resource_group.network.name}"
+  location            = "${azurerm_resource_group.network.location}"
   edition             = "Basic"
   server_name         = "${azurerm_sql_server.server.name}"
 
@@ -196,8 +199,8 @@ resource "azurerm_sql_database" "db" {
 
 resource "azurerm_sql_server" "server" {
   name                         = "dbdemo01"
-  resource_group_name          = "asotelovmssdemo"
-  location                     = "centralus"
+  resource_group_name          = "${azurerm_resource_group.network.name}"
+  location                     = "${azurerm_resource_group.network.location}"
   version                      = "12.0"
   administrator_login          = "dbuser"
   administrator_login_password = "T3rr@f0rm!P0w3r"
@@ -209,12 +212,14 @@ resource "azurerm_sql_server" "server" {
 
 resource "azurerm_sql_firewall_rule" "fw" {
   name                = "dbdemo1firewallrules"
-  resource_group_name = "asotelovmssdemo"
+  resource_group_name = "${azurerm_resource_group.network.name}"
   server_name         = "${azurerm_sql_server.server.name}"
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
 
+
+//Outputs
 output "windows_vm_public_name" {
   value = "${module.windowsservers.public_ip_dns_name}"
 }
