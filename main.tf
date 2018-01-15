@@ -6,7 +6,8 @@ provider "azurerm" {
 resource "azurerm_resource_group" "network" {
   name     = "asotelovmssdemo"
   location = "centralus"
-    "tags" {
+
+  "tags" {
     name = "Antonio Sotelo"
   }
 }
@@ -217,7 +218,6 @@ resource "azurerm_sql_firewall_rule" "fw" {
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
-
 
 //Outputs
 output "windows_vm_public_name" {
