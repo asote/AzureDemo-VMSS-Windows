@@ -152,7 +152,7 @@ resource "azurerm_virtual_machine_scale_set" "vm-windows" {
 
     settings = <<SETTINGS
     {
-        "fileUris": [ https://raw.githubusercontent.com/asote/AzureDemo-VMSS-Windows/dbconn/configurations/Configure-WebServer.ps1" ],
+        "fileUris": [ https://raw.githubusercontent.com/asote/AzureDemo-VMSS-Windows/master/configurations/Configure-WebServer.ps1" ],
         "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File Configure-WebServer.ps1"
     }
     SETTINGS
