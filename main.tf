@@ -211,8 +211,8 @@ resource "azurerm_sql_firewall_rule" "fw" {
   name                = "dbdemo1firewallrules"
   resource_group_name = "asotelovmssdemo"
   server_name         = "${azurerm_sql_server.server.name}"
-  start_ip_address    = "10.0.1.5"
-  end_ip_address      = "10.0.1.254"
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
 }
 
 output "windows_vm_public_name" {
@@ -227,9 +227,9 @@ output "windows_vm_private_ips" {
   value = "${module.windowsservers.network_interface_private_ip}"
 }
 
-output "lb_frontend_IP_configuration" {
-  value = "${module.loadbalancer.azurerm_lb_frontend_ip_configuration}"
-}
+//output "lb_Public_IP" {
+//  value = "${module.loadbalancer.azurerm_public_ip_address}"
+//}
 
 output "lb_number_of_nodes" {
   value = "${module.loadbalancer.number_of_nodes}"
